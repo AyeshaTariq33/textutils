@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 
 export default function TextForm(props) {
-    const [text , setText] = useState('Enter Text Here'); 
+    const [text , setText] = useState(''); 
     // setText("Enter text here");
     const handleUpClick = ()=>
     {
@@ -12,7 +12,7 @@ export default function TextForm(props) {
 
     const handleLoClick = ()=>
     {
-        console.log("uppercase was clicked");
+        console.log("lowercase was clicked");
         let newText = text.toLowerCase();
         setText(newText);
     }
@@ -21,6 +21,26 @@ export default function TextForm(props) {
         console.log("on change");
         setText(event.target.value);
     }
+     const handleClearClick = ()=>
+    {
+        console.log("clear was clicked");
+        let newText = text.toLowerCase();
+        setText('');
+    }
+    const handleInvertClick = ()=>
+    {
+        console.log("invertcase was clicked");
+                let newText = text
+                .split('')
+                .map(char => char === char.toUpperCase()
+                    ?  char.toLowerCase()
+                    : char.toUpperCase()
+            )
+            .join('');
+        setText(newText);
+    }
+
+
 
   return (
         <>
@@ -33,9 +53,11 @@ export default function TextForm(props) {
             </form>
             <button className="btn btn-primary my-3" onClick={handleUpClick}>Convert to Uppercase</button>
             <button className="btn btn-primary my-3 mx-2" onClick={handleLoClick}>Convert to LowerCase.</button>
+            <button className="btn btn-primary my-3 mx-1" onClick={handleInvertClick}>Invert Case</button>
+            <button className="btn btn-primary my-3 mx-1" onClick={handleClearClick}>Clear</button>
         </div>
         <div className="container my-3">
-            <h1>Your text summary:</h1>
+            <h2>Your text summary:</h2>
             <p>{text.split(" ").length} words and {text.length} characters</p>
             <p>{0.008 * text.split(" ").length} minutes read.</p>
             <h2>Preview</h2>
